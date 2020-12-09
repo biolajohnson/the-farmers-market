@@ -31,9 +31,6 @@ const Navbar = () => {
   const guestLinks = (
     <ul>
       <li>
-        <Link to="/profiles">Farmers</Link>
-      </li>
-      <li>
         <Link to="/register">Register</Link>
       </li>
       <li>
