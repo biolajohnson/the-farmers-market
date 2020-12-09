@@ -3,12 +3,7 @@ import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 
 const ProfileItem = ({
-  profile: {
-    user: { name, _id, avatar },
-    firstname,
-    lastname,
-    location,
-  },
+  profile: { firstname, lastname, location, avatar, _id },
 }) => {
   return (
     <Fragment>
@@ -16,7 +11,6 @@ const ProfileItem = ({
         <img className="round-img" src={avatar} alt="Avatar" />
         <div>
           <h2>{`${lastname}, ${firstname}`}</h2>
-          <p>{name}</p>
           <p>{location}</p>
           <Link to={`/profile/${_id}`} className="btn btn-primary">
             View Profile

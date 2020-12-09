@@ -1,11 +1,14 @@
 import Profile from "../Models/Profile.js";
 import asyncHandler from "express-async-handler";
+import User from "../Models/Users.js";
 
 //create profile
 export const createProfile = asyncHandler(async (req, res) => {
   const { firstname, lastname, location, bio } = req.body;
   const profileFields = {};
+  const user = await User.findById(req.user.id);
   profileFields.user = req.user.id;
+  profileFields.avatar = user.avatar;
   if (firstname) profileFields.firstname = firstname;
   if (lastname) profileFields.lastname = lastname;
   if (location) profileFields.location = location;
