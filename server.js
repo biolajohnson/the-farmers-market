@@ -17,14 +17,24 @@ connectDB();
 const app = express();
 const port = process.env.PORT || 7000;
 
+if (process.env.NODE_ENV === "development") {
+  app.use(morgan("dev"));
+}
 app.use(express.json());
 const __dirname = path.resolve();
 app.use("/uploads", express.static(path.join(__dirname, "/uploads")));
 
-app.get("/", (req, res) => {
-  res.send("the api is on the way!");
-});
-app.use(morgan("dev"));
+if (process.env.NODE_ENV === "production") {
+  const __dirname = path.resolve();
+  app.use(express.static(path.join(__dirname, "/client/build")));
+  app.get("*", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
+  });
+} else {
+  app.get("/", (req, res) => {
+    res.send("the api is on the way!");
+  });
+}
 
 app.use("/api/user", userRoutes);
 app.use("/api/upload", uploadRoute);
